@@ -7,4 +7,7 @@ package com.example.tausif.newsviews.ui;
 public interface MainPresenterInterface {
 
     void getNews();
+
+//        <!--android:icon="@drawable/ic_local_grocery_store_black_24dp"-->
+
 }
