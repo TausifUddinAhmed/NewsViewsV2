@@ -1,4 +1,4 @@
-package utils;
+package com.example.tausif.newsviews.utils;
 
 public class AppConfig {
 
