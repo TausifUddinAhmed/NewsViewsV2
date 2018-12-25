@@ -1,4 +1,4 @@
-package com.example.tausif.newsviews.apiinterface;
+package com.example.tausif.newsviews.network;
 
 
 import com.example.tausif.newsviews.model.NewsApiResponse;
