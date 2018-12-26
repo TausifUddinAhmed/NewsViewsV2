@@ -5,6 +5,7 @@
     <string name="home">Home</string>
     <string name="about">About</string>
     <string name="exit">Exit</string>
-
+    <string name="search_title">Search Number ..</string>
+    <string name="search_hint"> Search Number or Date</string>
 
 </resources>
