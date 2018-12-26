@@ -1,6 +1,6 @@
 package com.example.tausif.newsviews.ui;
 
-import com.example.tausif.newsviews.model.NewsApiResponse;
+import com.example.tausif.newsviews.model.news.NewsApiResponse;
 
 
 

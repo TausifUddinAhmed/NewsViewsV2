@@ -1,4 +1,4 @@
-package com.example.tausif.newsviews.model;
+package com.example.tausif.newsviews.model.news;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
