@@ -3,8 +3,8 @@ package com.example.tausif.newsviews.ui;
 
 import android.util.Log;
 import com.example.tausif.newsviews.network.Api;
-import com.example.tausif.newsviews.model.Data;
-import com.example.tausif.newsviews.model.NewsApiResponse;
+import com.example.tausif.newsviews.model.news.Data;
+import com.example.tausif.newsviews.model.news.NewsApiResponse;
 import com.example.tausif.newsviews.network.ServiceFactory;
 import com.example.tausif.newsviews.utils.AppConfig;
 import rx.Subscriber;
@@ -13,33 +13,32 @@ import rx.schedulers.Schedulers;
 
 public class MainPresenter implements MainPresenterInterface {
 
-    MainViewInterface mvi;
+    MainViewInterface mainViewInterface;
     private String TAG = "MainPresenter";
 
-    public MainPresenter(MainViewInterface mvi) {
+    public MainPresenter(MainViewInterface mainViewInterface) {
 
-        this.mvi = mvi;
+        this.mainViewInterface = mainViewInterface;
     }
 
 
     @Override
     public void getNews() {
 
-        mvi.showProgressBar();
-        Api service = ServiceFactory.createRetrofitService(Api.class, AppConfig.BASE_SERVER_URL);
+        mainViewInterface.showProgressBar();
+        Api service = ServiceFactory.createRetrofitService(Api.class, AppConfig.BASE_NEWS_URL);
 
 
-        for(String newPortal : Data.newsPortalList) {
-            service.getNews(newPortal, AppConfig.API_KEY)
+        for(String newsPortal : Data.newsPortalList) {
+            service.getNews(newsPortal, AppConfig.API_KEY)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<NewsApiResponse>() {
 
                         @Override
                         public final void onCompleted() {
-                            // do nothing
 
-                            mvi.hideProgressBar();
+                            mainViewInterface.hideProgressBar();
 
                         }
 
@@ -53,7 +52,7 @@ public class MainPresenter implements MainPresenterInterface {
                         public final void onNext(NewsApiResponse response) {
                             // mCardAdapter.addData(response);
 
-                            mvi.displayNews(response)   ;
+                            mainViewInterface.displayNews(response)   ;
 
                             Log.e("NewsPortalResponse :  ", response.getArticles().toString());
 
@@ -64,9 +63,6 @@ public class MainPresenter implements MainPresenterInterface {
 
 
         }
-
-
-
 
     }
 

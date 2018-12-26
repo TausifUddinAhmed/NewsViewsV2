@@ -17,10 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.tausif.newsviews.R;
-import com.example.tausif.newsviews.model.NewsApiResponse;
+import com.example.tausif.newsviews.model.news.NewsApiResponse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class MainActivity extends AppCompatActivity implements MainViewInterface {

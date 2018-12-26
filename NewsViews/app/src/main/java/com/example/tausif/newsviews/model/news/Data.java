@@ -1,4 +1,4 @@
-package com.example.tausif.newsviews.model;
+package com.example.tausif.newsviews.model.news;
 
 import java.util.ArrayList;
 import java.util.List;
