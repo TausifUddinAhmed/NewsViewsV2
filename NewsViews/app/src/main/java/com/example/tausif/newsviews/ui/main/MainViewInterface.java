@@ -1,9 +1,10 @@
-package com.example.tausif.newsviews.ui;
+package com.example.tausif.newsviews.ui.main;
 
+import com.example.tausif.newsviews.model.news.Article;
 import com.example.tausif.newsviews.model.news.NewsApiResponse;
 
-
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public interface MainViewInterface {
@@ -11,6 +12,6 @@ public interface MainViewInterface {
     void showToast(String s);
     void showProgressBar();
     void hideProgressBar();
-    void displayNews(NewsApiResponse newsApiResponse);
+    void displayNews(List<Article> articleList);
     void displayError(String s);
 }
