@@ -1,4 +1,4 @@
-package com.example.tausif.newsviews.ui;
+package com.example.tausif.newsviews.ui.main;
 
 /**
  * Created by anujgupta on 26/12/17.

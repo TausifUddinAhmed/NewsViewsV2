@@ -12,8 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value="com.example.tausif.newsviews.ui.search.SearchResultsActivity" />
 
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -22,7 +25,8 @@
                 android:name="android.app.default_searchable"
                 android:value="com.example.tausif.newsviews.ui.search.SearchResultsActivity" />
         </activity>
-        <activity android:name=".ui.search.SearchResultsActivity"
+
+        <activity android:name="com.example.tausif.newsviews.ui.search.SearchResultsActivity"
             android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

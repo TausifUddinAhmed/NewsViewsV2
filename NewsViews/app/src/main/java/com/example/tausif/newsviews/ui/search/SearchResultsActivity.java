@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.tausif.newsviews.R;
 import com.example.tausif.newsviews.model.news.NewsApiResponse;
@@ -14,6 +15,8 @@ public class SearchResultsActivity extends AppCompatActivity implements SearchRe
 
     SearchResultsPresenter searchResultsPresenter;
 
+    TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,8 @@ public class SearchResultsActivity extends AppCompatActivity implements SearchRe
         setContentView(R.layout.activity_search_results);
         getSupportActionBar().hide();
         setupMVP();
+
+        textView = findViewById(R.id.textView);
     }
 
     private void setupMVP() {
@@ -64,6 +69,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SearchRe
     @Override
     public void displayNumberOrDateTrivia(NumberOrDateTriviaResponse numberOrDateTriviaResponse) {
 
+        textView.setText(numberOrDateTriviaResponse.getText());
     }
 
 

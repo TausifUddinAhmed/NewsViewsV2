@@ -1,12 +1,18 @@
-package com.example.tausif.newsviews.ui;
+package com.example.tausif.newsviews.ui.main;
 
 
 import android.util.Log;
+
+import com.example.tausif.newsviews.model.news.Article;
 import com.example.tausif.newsviews.network.Api;
 import com.example.tausif.newsviews.model.news.Data;
 import com.example.tausif.newsviews.model.news.NewsApiResponse;
 import com.example.tausif.newsviews.network.ServiceFactory;
 import com.example.tausif.newsviews.utils.AppConfig;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -15,6 +21,8 @@ public class MainPresenter implements MainPresenterInterface {
 
     MainViewInterface mainViewInterface;
     private String TAG = "MainPresenter";
+
+    List<Article> articles;
 
     public MainPresenter(MainViewInterface mainViewInterface) {
 
@@ -50,9 +58,10 @@ public class MainPresenter implements MainPresenterInterface {
 
                         @Override
                         public final void onNext(NewsApiResponse response) {
-                            // mCardAdapter.addData(response);
 
-                            mainViewInterface.displayNews(response)   ;
+
+
+                            mainViewInterface.displayNews(response.getArticles())   ;
 
                             Log.e("NewsPortalResponse :  ", response.getArticles().toString());
 
