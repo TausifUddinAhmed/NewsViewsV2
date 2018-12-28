@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity implements MainViewInterface,SearchView.OnQueryTextListener {
+public class MainActivity extends AppCompatActivity implements MainViewInterface,SearchView.OnQueryTextListener, SwipeRefreshLayout.OnRefreshListener {
 
 
     MainPresenter mainPresenter;
@@ -34,6 +35,12 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
 
     private DrawerLayout drawerLayout;
+
+
+    @BindView(R.id.swipe_container)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
+
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -57,9 +64,24 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         configureNavigationDrawer();
         configureToolbar();
         setupMVP();
+        setupSwipeRefreshLayout();
+
        // getNewsList();
 
 
+
+
+
+
+
+        mSwipeRefreshLayout.post(new Runnable() {
+
+            @Override
+            public void run() {
+                
+                getNewsList();
+             }
+        });
 
 
 
@@ -71,6 +93,18 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         ActionBar actionbar = getSupportActionBar();
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         actionbar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    private  void  setupSwipeRefreshLayout(){
+
+        mSwipeRefreshLayout = findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
+
+
     }
 
     @Override
@@ -154,13 +188,16 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     @Override
     public void showProgressBar() {
 
-        progressBar.setVisibility(View.VISIBLE);
+        mSwipeRefreshLayout.setRefreshing(true);
+
+       // progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgressBar() {
 
-        progressBar.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setRefreshing(false);
+       // progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -170,6 +207,8 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(mainAdapter);
+
+        //mSwipeRefreshLayout.setRefreshing(false);
 
 
     }
@@ -192,5 +231,10 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     @Override
     public boolean onQueryTextChange(String s) {
         return true;
+    }
+
+    @Override
+    public void onRefresh() {
+        getNewsList();
     }
 }
