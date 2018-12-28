@@ -46,6 +46,9 @@ public class SearchResultsPresenter implements  SearchResultsPresenterInterface 
                         @Override
                         public final void onError(Throwable e) {
                             Log.e("Number Response", e.getMessage());
+                            searchResultViewInterface.showToast("Invaild Number/Date");
+                            searchResultViewInterface.hideProgressBar();
+
                         }
 
 

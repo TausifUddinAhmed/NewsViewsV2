@@ -59,6 +59,7 @@ public class MainPresenter implements MainPresenterInterface {
                         @Override
                         public final void onError(Throwable e) {
                             Log.e("NewsPortalResponse", e.getMessage());
+                            mainViewInterface.displayError(e.getMessage());
                         }
 
 
