@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.example.tausif.newsviews.R;
 import com.example.tausif.newsviews.model.news.Article;
 import java.util.List;
@@ -40,6 +42,12 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder newsViewHolder, int i) {
 
+
+
+        Glide.with(context).load(articles.get(i).getUrlToImage())
+                .thumbnail(0.5f)
+                .into(newsViewHolder.imageViewNews);
+
         newsViewHolder.textViewTitle.setText(articles.get(i).getTitle());
         newsViewHolder.textViewAuthor.setText(articles.get(i).getAuthor());
         newsViewHolder.textViewDescription.setText(articles.get(i).getDescription());
@@ -69,11 +77,13 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
 
              super(itemView);
 
+             imageViewNews = itemView.findViewById(R.id.image_view_news);
              textViewTitle = itemView.findViewById(R.id.text_view_title);
              textViewAuthor = itemView.findViewById(R.id.text_view_author);
              textViewPublishedDate = itemView.findViewById(R.id.text_view_published_date);
              textViewDescription = itemView.findViewById(R.id.text_view_description);
              textViewUrl = itemView.findViewById(R.id.text_view_url);
+
 
 
         }

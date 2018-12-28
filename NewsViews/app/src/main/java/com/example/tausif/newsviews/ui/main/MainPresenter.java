@@ -1,6 +1,8 @@
 package com.example.tausif.newsviews.ui.main;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.tausif.newsviews.model.news.Article;
@@ -8,6 +10,7 @@ import com.example.tausif.newsviews.network.Api;
 import com.example.tausif.newsviews.model.news.Data;
 import com.example.tausif.newsviews.model.news.NewsApiResponse;
 import com.example.tausif.newsviews.network.ServiceFactory;
+import com.example.tausif.newsviews.ui.search.SearchResultsActivity;
 import com.example.tausif.newsviews.utils.AppConfig;
 
 import java.util.ArrayList;
@@ -22,10 +25,13 @@ public class MainPresenter implements MainPresenterInterface {
     MainViewInterface mainViewInterface;
     private String TAG = "MainPresenter";
 
+    Context context;
+
     List<Article> articles;
 
-    public MainPresenter(MainViewInterface mainViewInterface) {
+    public MainPresenter(Context context, MainViewInterface mainViewInterface) {
 
+        this.context = context;
         this.mainViewInterface = mainViewInterface;
     }
 
@@ -74,6 +80,17 @@ public class MainPresenter implements MainPresenterInterface {
         }
 
     }
+
+    @Override
+    public void goSearchResultActivity(String s) {
+
+        Intent intent  =  new Intent(context,SearchResultsActivity.class);
+        intent.putExtra("Searching_Value", s);
+        context.startActivity(intent);
+
+
+    }
+
 
 }
 

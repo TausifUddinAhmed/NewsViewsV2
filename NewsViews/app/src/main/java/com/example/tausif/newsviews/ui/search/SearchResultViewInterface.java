@@ -8,6 +8,6 @@ public interface SearchResultViewInterface {
     void showToast(String s);
     void showProgressBar();
     void hideProgressBar();
-    void displayNumberOrDateTrivia(NumberOrDateTriviaResponse numberOrDateTriviaResponse);
+    void displayNumberOrDateTrivia(String result);
     void displayError(String s);
 }
