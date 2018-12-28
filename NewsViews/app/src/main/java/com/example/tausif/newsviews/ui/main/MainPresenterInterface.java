@@ -8,6 +8,9 @@ public interface MainPresenterInterface {
 
     void getNews();
 
+    void goSearchResultActivity(String s);
+
+
 //        <!--android:icon="@drawable/ic_local_grocery_store_black_24dp"-->
 
 }

@@ -16,13 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.tausif.newsviews.R;
 import com.example.tausif.newsviews.model.news.Article;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -40,16 +38,14 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     @BindView(R.id.swipe_container)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-
-
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
-
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
 
-    @BindView(R.id.toolbar)
+    @BindView(R.id.searchbar_toolbar)
     Toolbar toolBar;
+
+
+    private Menu menu;
 
 
     @Override
@@ -70,16 +66,12 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
 
 
-
-
-
-
         mSwipeRefreshLayout.post(new Runnable() {
 
             @Override
             public void run() {
-                
-                getNewsList();
+
+               // getNewsList();
              }
         });
 
@@ -88,8 +80,7 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     }
 
     private void configureToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolBar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -120,6 +111,9 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         searchView.setOnQueryTextListener(this);
         searchView.setIconified(false);
 
+        this.menu = menu;
+
+
         return true;
     }
 
@@ -137,6 +131,27 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+       //close search option when go to search result activity
+        MenuItem searchItm = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) searchItm.getActionView();
+
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+
     }
 
     private void configureNavigationDrawer() {
@@ -170,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
     private void setupMVP() {
 
-        mainPresenter = new MainPresenter(this);
+        mainPresenter = new MainPresenter(MainActivity.this, this);
     }
 
     private void getNewsList() {
@@ -190,14 +205,14 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
         mSwipeRefreshLayout.setRefreshing(true);
 
-       // progressBar.setVisibility(View.VISIBLE);
+
     }
 
     @Override
     public void hideProgressBar() {
 
         mSwipeRefreshLayout.setRefreshing(false);
-       // progressBar.setVisibility(View.GONE);
+        // progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -207,8 +222,6 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(mainAdapter);
-
-        //mSwipeRefreshLayout.setRefreshing(false);
 
 
     }
@@ -220,21 +233,26 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
     }
 
+
+
+
     @Override
     public boolean onQueryTextSubmit(String s) {
 
-        Toast.makeText(this, "Query Inserted  "+s, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Query Inserted  "+s, Toast.LENGTH_SHORT).show();
+        mainPresenter.goSearchResultActivity(s);
         return true;
 
     }
 
     @Override
     public boolean onQueryTextChange(String s) {
+
         return true;
     }
 
     @Override
     public void onRefresh() {
-        getNewsList();
+        //getNewsList();
     }
 }
