@@ -55,7 +55,7 @@ public class SearchResultsPresenter implements  SearchResultsPresenterInterface 
 
 
 
-                            searchResultViewInterface.displayNumberOrDateTrivia(response);
+                            searchResultViewInterface.displayNumberOrDateTrivia(response.getText());
                             Log.e("Number Response  ", response.getText());
 
 
