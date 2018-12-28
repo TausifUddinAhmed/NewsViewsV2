@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tausif.newsviews.R;
@@ -84,6 +85,14 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
              textViewDescription = itemView.findViewById(R.id.text_view_description);
              textViewUrl = itemView.findViewById(R.id.text_view_url);
 
+
+             itemView.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     int position = getAdapterPosition();
+                     Toast.makeText(context, articles.get(position).getAuthor(), Toast.LENGTH_SHORT).show();
+                 }
+             });
 
 
         }

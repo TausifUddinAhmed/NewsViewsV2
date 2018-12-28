@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         setupMVP();
         setupSwipeRefreshLayout();
 
-       // getNewsList();
 
 
 
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
             @Override
             public void run() {
 
-               // getNewsList();
+            //  getNewsList();
              }
         });
 
@@ -231,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     @Override
     public void displayError(String s) {
 
+        Toast.makeText(this, "Error "  + s, Toast.LENGTH_SHORT).show();
     }
 
 
