@@ -10,7 +10,7 @@ public interface MainPresenterInterface {
 
     void goSearchResultActivity(String s);
 
+    void signInGoogle();
 
-//        <!--android:icon="@drawable/ic_local_grocery_store_black_24dp"-->
 
 }

@@ -12,6 +12,7 @@ public interface MainViewInterface {
     void hideProgressBar();
     void displayNews(List<Article> articleList);
     void displayError(String s);
+    void googleSignInResult();
 
 
 }

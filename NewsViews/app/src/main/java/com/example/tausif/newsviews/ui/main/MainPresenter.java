@@ -12,6 +12,7 @@ import com.example.tausif.newsviews.model.news.NewsApiResponse;
 import com.example.tausif.newsviews.network.ServiceFactory;
 import com.example.tausif.newsviews.ui.search.SearchResultsActivity;
 import com.example.tausif.newsviews.utils.AppConfig;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,13 @@ import rx.schedulers.Schedulers;
 public class MainPresenter implements MainPresenterInterface {
 
     MainViewInterface mainViewInterface;
-    private String TAG = "MainPresenter";
+   // private String TAG = "MainPresenter";
+
+    private static final String TAG = "GOOGLE SIGN IN";
+
+    private GoogleSignInClient googleSignInClient;
+
+
 
     Context context;
 
@@ -89,6 +96,14 @@ public class MainPresenter implements MainPresenterInterface {
         intent.putExtra("Searching_Value", s);
         context.startActivity(intent);
 
+
+    }
+
+    @Override
+    public void signInGoogle() {
+
+
+        mainViewInterface.googleSignInResult();
 
     }
 
