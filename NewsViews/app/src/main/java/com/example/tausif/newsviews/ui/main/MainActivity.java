@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
             @Override
             public void run() {
-             //   getNewsList();
+              getNewsList();
              }
         });
 

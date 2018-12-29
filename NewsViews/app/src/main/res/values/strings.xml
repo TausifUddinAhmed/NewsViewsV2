@@ -9,6 +9,7 @@
     <string name="search_hint"> Search N or Date(Ex. Day/Month)</string>
 
     <string name="next">NEXT</string>
+    <string name="load_content">Load the content in your mobile browser ?</string>
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
 
