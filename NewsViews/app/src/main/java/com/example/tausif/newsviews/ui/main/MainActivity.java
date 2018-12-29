@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         MenuItem searchItem = menu.findItem(R.id.search);
 
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint("Search Number");
+        searchView.setQueryHint(getString(R.string.search_hint));
         searchView.setOnQueryTextListener(this);
         searchView.setIconified(false);
 
