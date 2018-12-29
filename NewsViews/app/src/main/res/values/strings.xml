@@ -17,6 +17,8 @@
         love to play with technology
         </string>
 
+    <string name="error_message">Please give a valid Number /Date</string>
+
     <string name="slide_2_title">Movie Tickets</string>
     <string name="slide_2_desc">Get latest news all over the world and find interesting number facts </string>
 

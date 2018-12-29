@@ -4,15 +4,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.tausif.newsviews.R;
-import com.example.tausif.newsviews.model.news.NewsApiResponse;
-import com.example.tausif.newsviews.model.number.NumberOrDateTriviaResponse;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -98,7 +94,10 @@ public class SearchResultsActivity extends AppCompatActivity implements SearchRe
 
 
     @Override
-    public void displayError(String s) {
+    public void displayError() {
+
+
+        textViewNumberResult.setText(getString(R.string.error_message));
 
     }
 }

@@ -3,7 +3,7 @@ package com.example.tausif.newsviews.model.number;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class NumberOrDateTriviaResponse {
+public class NumberTriviaResponse {
 
     @SerializedName("text")
     @Expose
@@ -55,7 +55,7 @@ public class NumberOrDateTriviaResponse {
 
     @Override
     public String toString() {
-        return "NumberOrDateTriviaResponse{" +
+        return "NumberTriviaResponse{" +
                 "text='" + text + '\'' +
                 ", number=" + number +
                 ", found=" + found +
