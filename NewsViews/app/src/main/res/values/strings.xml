@@ -8,6 +8,8 @@
     <string name="search_title">Search </string>
     <string name="search_hint"> Search N or Date(Ex. Day/Month)</string>
 
+    <string name="google_sign_in">Sign in with Google</string>
+
     <string name="next">NEXT</string>
     <string name="load_content">Load the content in your mobile browser ?</string>
     <string name="skip">SKIP</string>
@@ -31,5 +33,7 @@
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
+    <string name="username">User Name</string>
+    <string name="mail">abc@gmail.com</string>
 
 </resources>

@@ -5,6 +5,8 @@
         android:title="@string/home"/>
     <item android:id="@+id/about"
         android:title="@string/about"/>
+    <item android:id="@+id/google_sign_in"
+        android:title="@string/google_sign_in"/>
     <item android:id="@+id/exit"
         android:title="@string/exit"/>
 

@@ -1,5 +1,8 @@
 package com.example.tausif.newsviews.ui.main;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -7,19 +10,29 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.tausif.newsviews.R;
 import com.example.tausif.newsviews.model.news.Article;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,8 +58,17 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     Toolbar toolBar;
 
 
+    TextView textViewUsername;
+    TextView textViewUserMail;
+
+
     private Menu menu;
 
+    public static final String GOOGLE_ACCOUNT = "google_account";
+
+    private static final String TAG = "GOOGLE SIGN IN";
+
+    private GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
             @Override
             public void run() {
-              getNewsList();
+           //   getNewsList();
              }
         });
 
@@ -136,12 +158,6 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         super.onPause();
 
        //close search option when go to search result activity
-        MenuItem searchItm = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) searchItm.getActionView();
-
-        if (!searchView.isIconified()) {
-            searchView.setIconified(true);
-        }
     }
 
     @Override
@@ -159,26 +175,46 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-//                Fragment f = null;
-//                int itemId = menuItem.getItemId();
-//
-//                if (itemId == R.id.refresh) {
-//                    f = new RefreshFragment();
-//                } else if (itemId == R.id.stop) {
-//                    f = new StopFragment();
-//                }
-//
-//                if (f != null) {
-//                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                    transaction.replace(R.id.frame, f);
-//                    transaction.commit();
-//                    drawerLayout.closeDrawers();
-//                    return true;
-//                }
+                int itemId = menuItem.getItemId();
+
+                if (itemId == R.id.google_sign_in) {
+
+                    mainPresenter.signInGoogle();
+
+
+                } else if (itemId == R.id.about) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("NewsViews");
+                    builder.setMessage("It is an awesome app, version 1.0 \n To google sign in, you need to use gmail which are you already logged in play store");
+                    builder.setPositiveButton("0K",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+
+
+
+                                }
+                            });
+
+
+                    builder.setCancelable(false);
+                    builder.show();
+                }
+
+                else if (itemId == R.id.exit) {
+
+                    finish();
+                }
+
 
                 return false;
             }
         });
+
+        View header=navView.getHeaderView(0);
+
+        textViewUsername = (TextView)header.findViewById(R.id.text_view_username);
+        textViewUserMail= (TextView)header.findViewById(R.id.text_view_mail);
     }
 
     private void setupMVP() {
@@ -210,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     public void hideProgressBar() {
 
         mSwipeRefreshLayout.setRefreshing(false);
-        // progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -232,6 +267,66 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         Toast.makeText(this, "Error "  + s, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void googleSignInResult() {
+
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, 101);
+
+
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK)
+            switch (requestCode) {
+                case 101:
+                    try {
+                        // The Task returned from this call is always completed, no need to attach
+                        // a listener.
+                        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                        GoogleSignInAccount account = task.getResult(ApiException.class);
+
+                        String name = account.getDisplayName();
+                        String email  =  account.getEmail();
+                        Log.e(TAG, email);
+                        onLoggedIn(account);
+                    } catch (ApiException e) {
+                        // The ApiException status code indicates the detailed failure reason.
+                        Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+                    }
+                    break;
+            }
+    }
+
+    private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
+
+
+        textViewUsername.setText(googleSignInAccount.getDisplayName());
+        textViewUserMail.setText(googleSignInAccount.getEmail());
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        GoogleSignInAccount alreadyloggedAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if (alreadyloggedAccount != null) {
+            Log.d(TAG, "ALready logged in");
+            onLoggedIn(alreadyloggedAccount);
+        } else {
+            Log.d(TAG, "Not logged in");
+        }
+    }
 
 
 
@@ -240,6 +335,14 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
        // Toast.makeText(this, "Query Inserted  "+s, Toast.LENGTH_SHORT).show();
         mainPresenter.goSearchResultActivity(s);
+
+        MenuItem searchItm = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) searchItm.getActionView();
+
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+        }
+
         return true;
 
     }
