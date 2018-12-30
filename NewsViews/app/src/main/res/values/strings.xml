@@ -6,31 +6,26 @@
     <string name="about">About</string>
     <string name="exit">Exit</string>
     <string name="search_title">Search </string>
-    <string name="search_hint"> Search Num/Date(Month/Day)</string>
-
-    <string name="google_sign_in">Sign in with Google</string>
-
+    <string name="search_hint">Search Num/Date(M/D)</string>
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="published_date">Published Date</string>
+    <string name="description">Description</string>
+    <string name="google_sign_in">Sign in with Social</string>
     <string name="next">NEXT</string>
     <string name="load_content">Load the content in your mobile browser ?</string>
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
-
     <string name="slide_1_title">Hello!</string>
     <string name="slide_1_desc"> I am tausif, graduated from AIUB. Currently working as an IoT Engineer specially in Android Development and
-        love to play with technology
-        </string>
-
+        love to play with technology</string>
     <string name="error_message">Please give a valid Number /Date</string>
-
     <string name="slide_2_title">Movie Tickets</string>
     <string name="slide_2_desc">Get latest news all over the world and find interesting number facts </string>
-
     <string name="slide_3_title">Great Discounts</string>
     <string name="slide_3_desc">Thanks to Rokomari.com to give me the opportunity to develop the such kinds of Mobile App</string>
-
     <string name="slide_4_title">World Travel</string>
     <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
-
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
     <string name="username">User Name</string>

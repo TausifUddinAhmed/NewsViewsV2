@@ -18,9 +18,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.example.tausif.newsviews.R;
 import com.example.tausif.newsviews.model.prefrencemanager.PrefManager;
 import com.example.tausif.newsviews.ui.main.MainActivity;
+import com.example.tausif.newsviews.ui.secondarysplashscreen.SplashActivity;
 
 public class IntroductionActivity extends AppCompatActivity {
 
@@ -29,18 +31,25 @@ public class IntroductionActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private Button btnSkip, btnNext;
+    private Button buttonSkip, buttonNext;
     private PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Checking for first time launch - before calling setContentView()
+//         Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {
-            launchHomeScreen();
-            finish();
+
+            if (prefManager.isSecondTimeLaunch()) {
+                launchHomeScreen();
+                finish();
+            } else {
+
+                launchSplashScreen();
+                finish();
+            }
         }
 
         // Making notification bar transparent
@@ -52,8 +61,8 @@ public class IntroductionActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        buttonSkip = (Button) findViewById(R.id.btn_skip);
+        buttonNext = (Button) findViewById(R.id.btn_next);
 
 
         // layouts of all welcome sliders
@@ -73,14 +82,14 @@ public class IntroductionActivity extends AppCompatActivity {
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        btnSkip.setOnClickListener(new View.OnClickListener() {
+        buttonSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchHomeScreen();
             }
         });
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // checking for last page
@@ -121,7 +130,14 @@ public class IntroductionActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
+        prefManager.setSecondTimeLaunch(false);
         startActivity(new Intent(IntroductionActivity.this, MainActivity.class));
+        finish();
+    }
+
+    private void launchSplashScreen() {
+
+        startActivity(new Intent(IntroductionActivity.this, SplashActivity.class));
         finish();
     }
 
@@ -135,12 +151,12 @@ public class IntroductionActivity extends AppCompatActivity {
             // changing the next button text 'NEXT' / 'GOT IT'
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
-                btnNext.setText(getString(R.string.start));
-                btnSkip.setVisibility(View.GONE);
+                buttonNext.setText(getString(R.string.start));
+                buttonSkip.setVisibility(View.GONE);
             } else {
                 // still pages are left
-                btnNext.setText(getString(R.string.next));
-                btnSkip.setVisibility(View.VISIBLE);
+                buttonNext.setText(getString(R.string.next));
+                buttonSkip.setVisibility(View.VISIBLE);
             }
         }
 

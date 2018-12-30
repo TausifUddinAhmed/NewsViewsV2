@@ -23,13 +23,13 @@
             android:text="@string/slide_1_title"
             android:fontFamily="@font/agency_fb"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/sp_30"
+            android:textSize="@dimen/sp30"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp20"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
             android:text="@string/slide_1_desc"
