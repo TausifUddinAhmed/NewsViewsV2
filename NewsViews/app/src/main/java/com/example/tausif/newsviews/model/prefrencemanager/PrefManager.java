@@ -18,6 +18,9 @@ public class PrefManager {
 
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
 
+    private static final String IS_SECOND_TIME_LAUNCH = "IsSecondTimeLaunch";
+
+
     public PrefManager(Context context) {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -31,6 +34,15 @@ public class PrefManager {
 
     public boolean isFirstTimeLaunch() {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
+    }
+
+    public void setSecondTimeLaunch(boolean isSecondTimeLaunch) {
+        editor.putBoolean(IS_SECOND_TIME_LAUNCH, isSecondTimeLaunch);
+        editor.commit();
+    }
+
+    public boolean isSecondTimeLaunch() {
+        return pref.getBoolean(IS_SECOND_TIME_LAUNCH, true);
     }
 
 }

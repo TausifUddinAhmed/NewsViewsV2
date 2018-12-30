@@ -5,10 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.tausif.newsviews.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -25,6 +28,9 @@ public class SearchResultsActivity extends AppCompatActivity implements SearchRe
 
     @BindView(R.id.search_result_toolbar)
     Toolbar toolBar;
+
+    @BindView(R.id.linearLayout)
+    LinearLayout linearLayout;
 
     String searchQuery;
 
@@ -45,10 +51,10 @@ public class SearchResultsActivity extends AppCompatActivity implements SearchRe
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setDisplayShowHomeEnabled(true);
 
-       // textViewNumberResult = findViewById(R.id.text_view_number_result);
+        // textViewNumberResult = findViewById(R.id.text_view_number_result);
         searchQuery = getIntent().getStringExtra("Searching_Value");
 
-       // Toast.makeText(this, searchQuery, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, searchQuery, Toast.LENGTH_SHORT).show();
 
         getNumberResult(searchQuery);
 
@@ -74,7 +80,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SearchRe
 
     }
 
-    public  void getNumberResult(String s){
+    public void getNumberResult(String s) {
 
         searchResultsPresenter.getNumberOrDateResults(s);
     }
@@ -88,6 +94,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SearchRe
     @Override
     public void displayNumberOrDateTrivia(String result) {
 
+        linearLayout.setVisibility(View.VISIBLE);
         textViewNumberResult.setText(result);
 
     }
@@ -96,7 +103,7 @@ public class SearchResultsActivity extends AppCompatActivity implements SearchRe
     @Override
     public void displayError() {
 
-
+        linearLayout.setVisibility(View.VISIBLE);
         textViewNumberResult.setText(getString(R.string.error_message));
 
     }

@@ -13,22 +13,30 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.search.SearchResultsActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.tausif.newsviews.ui.main.MainActivity" />
         </activity>
-        <activity android:name=".ui.introduction.IntroductionActivity">
+        <activity android:name=".ui.introduction.IntroductionActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.webview.WebViewActivity" />
+        <activity android:name=".ui.webview.WebViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.secondarysplashscreen.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

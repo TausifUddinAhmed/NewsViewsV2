@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
     private Menu menu;
 
-    public static final String GOOGLE_ACCOUNT = "google_account";
 
     private static final String TAG = "GOOGLE SIGN IN";
 
@@ -86,12 +85,11 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
 
 
-
         mSwipeRefreshLayout.post(new Runnable() {
 
             @Override
             public void run() {
-           //   getNewsList();
+                getNewsList();
              }
         });
 
@@ -154,13 +152,6 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-
-       //close search option when go to search result activity
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
 
@@ -177,15 +168,21 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
                 int itemId = menuItem.getItemId();
 
-                if (itemId == R.id.google_sign_in) {
+                if (itemId == R.id.home) {
+
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    finish();
+
+                }else if (itemId == R.id.google_sign_in) {
 
                     mainPresenter.signInGoogle();
 
 
-                } else if (itemId == R.id.about) {
+                }else if (itemId == R.id.about) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setTitle("NewsViews");
-                    builder.setMessage("It is an awesome app, version 1.0 \n To google sign in, you need to use gmail which are you already logged in play store");
+                    builder.setMessage("App Version 1.0 \nTo google sign in, you need to use gmail which are you already logged in play store \nAs It uses developer " +
+                            "plan, Limited api call is supported " );
                     builder.setPositiveButton("0K",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
@@ -251,6 +248,7 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     @Override
     public void displayNews(List<Article> articleList) {
 
+        Log.e("TAG", articleList.toString());
         mainAdapter = new MainAdapter(this,articleList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -333,15 +331,16 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     @Override
     public boolean onQueryTextSubmit(String s) {
 
-       // Toast.makeText(this, "Query Inserted  "+s, Toast.LENGTH_SHORT).show();
-        mainPresenter.goSearchResultActivity(s);
-
         MenuItem searchItm = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) searchItm.getActionView();
 
         if (!searchView.isIconified()) {
             searchView.setIconified(true);
         }
+
+
+        mainPresenter.goSearchResultActivity(s);
+
 
         return true;
 
@@ -355,6 +354,6 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
 
     @Override
     public void onRefresh() {
-        //getNewsList();
+        getNewsList();
     }
 }

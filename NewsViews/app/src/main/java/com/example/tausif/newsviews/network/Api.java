@@ -12,7 +12,6 @@ import rx.Observable;
 public interface Api {
 
 
-
     @GET("/everything")
     Observable<NewsApiResponse> getNews(@Query("q") String q, @Query("apikey") String apiKey);
 

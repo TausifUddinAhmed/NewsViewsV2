@@ -3,7 +3,6 @@ package com.example.tausif.newsviews.ui.main;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -58,11 +57,20 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
                 .thumbnail(0.5f)
                 .into(newsViewHolder.imageViewNews);
 
+
+
+
+
+        String author = context.getString(R.string.author) + " : " +articles.get(i).getAuthor();
+        String  description = context.getString(R.string.description) + " : " +articles.get(i).getDescription();
+        String  published_Date = context.getString(R.string.published_date) + " :" +articles.get(i).getPublishedAt();
+
+
         newsViewHolder.textViewTitle.setText(articles.get(i).getTitle());
-        newsViewHolder.textViewAuthor.setText(articles.get(i).getAuthor());
-        newsViewHolder.textViewDescription.setText(articles.get(i).getDescription());
-        newsViewHolder.textViewPublishedDate.setText(articles.get(i).getPublishedAt());
-        newsViewHolder.textViewUrl.setText(articles.get(i).getUrl());
+        newsViewHolder.textViewAuthor.setText(author);
+        newsViewHolder.textViewDescription.setText(description);
+        newsViewHolder.textViewPublishedDate.setText(published_Date);
+       // newsViewHolder.textViewUrl.setText(articles.get(i).getUrl());
 
     }
 
@@ -78,7 +86,7 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
         TextView textViewTitle;
         TextView textViewAuthor;
         TextView textViewDescription;
-        TextView textViewUrl;
+        //TextView textViewUrl;
         TextView textViewPublishedDate;
 
 
@@ -92,14 +100,15 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
              textViewAuthor = itemView.findViewById(R.id.text_view_author);
              textViewPublishedDate = itemView.findViewById(R.id.text_view_published_date);
              textViewDescription = itemView.findViewById(R.id.text_view_description);
-             textViewUrl = itemView.findViewById(R.id.text_view_url);
+         //    textViewUrl = itemView.findViewById(R.id.text_view_url);
 
 
              itemView.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
                      int position = getAdapterPosition();
-                     Toast.makeText(context, articles.get(position).getAuthor(), Toast.LENGTH_SHORT).show();
+
+                     //Toast.makeText(context, articles.get(position).getAuthor(), Toast.LENGTH_SHORT).show();
 
                      final String url = articles.get(position).getUrl();
 
@@ -129,7 +138,7 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
                              intent.putExtra("URL", url);
                              context.startActivity(intent);
 
-                             Toast.makeText(context, android.R.string.no, Toast.LENGTH_SHORT).show();
+                             //Toast.makeText(context, android.R.string.no, Toast.LENGTH_SHORT).show();
                          }
                      });
 

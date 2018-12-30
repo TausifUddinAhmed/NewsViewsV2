@@ -22,34 +22,41 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="title"
+            android:text="@string/title"
+            android:fontFamily="@font/agency_fb"
             android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp25"
+            android:textColor="@color/black"
             android:id="@+id/text_view_title" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="title"
+            android:textColor="@color/black"
+            android:text="@string/author"
             android:id="@+id/text_view_author" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="title"
+            android:text="@string/description"
+            android:textColor="@color/black"
             android:id="@+id/text_view_description" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="title"
-            android:id="@+id/text_view_url" />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:text="@s"-->
+            <!--android:id="@+id/text_view_url" />-->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="title"
+            android:textColor="@color/black"
+            android:text="@string/published_date"
             android:id="@+id/text_view_published_date" />
-
 
     </LinearLayout>
 
