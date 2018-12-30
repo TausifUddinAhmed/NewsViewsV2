@@ -17,14 +17,12 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class SearchResultsPresenter implements  SearchResultsPresenterInterface {
+public class SearchResultsPresenter implements SearchResultsPresenterInterface {
 
 
+    SearchResultViewInterface searchResultViewInterface;
 
-
-    SearchResultViewInterface searchResultViewInterface ;
-
-    SearchResultsPresenter(SearchResultViewInterface searchResultViewInterface){
+    SearchResultsPresenter(SearchResultViewInterface searchResultViewInterface) {
 
         this.searchResultViewInterface = searchResultViewInterface;
 
@@ -38,7 +36,9 @@ public class SearchResultsPresenter implements  SearchResultsPresenterInterface 
 
         String regex = "[0-9]+";
 
-        if(numberOrDate.matches(regex)) {
+
+        //used regex to check  whether a string contains number or not
+        if (numberOrDate.matches(regex)) {
 
 
             Api service = ServiceFactory.createRetrofitService(Api.class, AppConfig.BASE_NUMBER_URL);
@@ -80,9 +80,11 @@ public class SearchResultsPresenter implements  SearchResultsPresenterInterface 
         }
 
 
-        else  if(numberOrDate.matches("^(?i)(\\d{2}/\\d{2})$")){
+        //used regex to check  date format
+        // for month = ^(1[0-2]|[1-9])$
+        //  for day  =(3[01]|[12][0-9]|[1-9]$)
+        else if (numberOrDate.matches("^(?i)(1[0-2]|[1-9])/(3[01]|[12][0-9]|[1-9]$)")) {
 
-            System.out.println("write format");
 
             String[] parts = numberOrDate.split("/");
             String partOne = parts[0];
@@ -90,50 +92,44 @@ public class SearchResultsPresenter implements  SearchResultsPresenterInterface 
 
 
             searchResultViewInterface.showProgressBar();
-        Api service = ServiceFactory.createRetrofitService(Api.class, AppConfig.BASE_NUMBER_URL);
+            Api service = ServiceFactory.createRetrofitService(Api.class, AppConfig.BASE_NUMBER_URL);
 
 
-        service.getDateTrivia( partOne,partTwo,AppConfig.QUERY_STRING_JSON)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<DateTriviaResponse>() {
+            service.getDateTrivia(partOne, partTwo, AppConfig.QUERY_STRING_JSON)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<DateTriviaResponse>() {
 
-                    @Override
-                    public final void onCompleted() {
+                        @Override
+                        public final void onCompleted() {
 
-                        searchResultViewInterface.hideProgressBar();
-
-
-                    }
-
-                    @Override
-                    public final void onError(Throwable e) {
-                        Log.e("Date Response", e.getMessage());
-                        searchResultViewInterface.showToast("Invaild Number/Date");
-                        searchResultViewInterface.hideProgressBar();
-
-                    }
+                            searchResultViewInterface.hideProgressBar();
 
 
-                    @Override
-                    public final void onNext(DateTriviaResponse response) {
+                        }
+
+                        @Override
+                        public final void onError(Throwable e) {
+                            Log.e("Date Response", e.getMessage());
+                            searchResultViewInterface.showToast("Invaild Number/Date");
+                            searchResultViewInterface.hideProgressBar();
+
+                        }
 
 
+                        @Override
+                        public final void onNext(DateTriviaResponse response) {
 
 
-                        searchResultViewInterface.displayNumberOrDateTrivia(response.getText());
-                        Log.e("Date Response  ", response.getText());
+                            searchResultViewInterface.displayNumberOrDateTrivia(response.getText());
+                            Log.e("Date Response  ", response.getText());
 
 
+                        }
+                    });
 
-                    }
-                });
 
-
-        }
-
-        else {
-
+        } else {
 
 
             searchResultViewInterface.hideProgressBar();
@@ -142,13 +138,7 @@ public class SearchResultsPresenter implements  SearchResultsPresenterInterface 
         }
 
 
-
-
-   }
-
-
-
-
+    }
 
 
 }
