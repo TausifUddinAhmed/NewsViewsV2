@@ -30,5 +30,6 @@
     <string name="play_again">Play Again</string>
     <string name="username">User Name</string>
     <string name="mail">abc@gmail.com</string>
+    <string name="url">Url</string>
 
 </resources>

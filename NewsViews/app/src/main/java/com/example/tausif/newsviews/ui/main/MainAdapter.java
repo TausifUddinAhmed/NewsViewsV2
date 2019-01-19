@@ -19,6 +19,7 @@ import com.example.tausif.newsviews.R;
 import com.example.tausif.newsviews.model.news.Article;
 import com.example.tausif.newsviews.ui.webview.WebViewActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Intent.CATEGORY_BROWSABLE;
@@ -31,11 +32,24 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
      private List<Article> articles;
 
 
-    public  MainAdapter(Context context, List<Article>articles){
+//    public  MainAdapter(Context context, List<Article>articles){
+//
+//             this.context = context;
+//             this.articles =articles;
+//
+//    }
 
-             this.context = context;
-             this.articles =articles;
+    public  MainAdapter(Context context){
+        super();
+        this.context = context;
+        articles  =new ArrayList<Article>();
 
+    }
+
+    public void addData(List<Article> articleList) {
+
+        articles =articleList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -64,13 +78,16 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
         String author = context.getString(R.string.author) + " : " +articles.get(i).getAuthor();
         String  description = context.getString(R.string.description) + " : " +articles.get(i).getDescription();
         String  published_Date = context.getString(R.string.published_date) + " :" +articles.get(i).getPublishedAt();
+        String  url = context.getString(R.string.url) + " :" +articles.get(i).getUrl();
+
 
 
         newsViewHolder.textViewTitle.setText(articles.get(i).getTitle());
         newsViewHolder.textViewAuthor.setText(author);
         newsViewHolder.textViewDescription.setText(description);
         newsViewHolder.textViewPublishedDate.setText(published_Date);
-       // newsViewHolder.textViewUrl.setText(articles.get(i).getUrl());
+        newsViewHolder.textViewUrl.setText(url);
+
 
     }
 
@@ -86,7 +103,7 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
         TextView textViewTitle;
         TextView textViewAuthor;
         TextView textViewDescription;
-        //TextView textViewUrl;
+        TextView textViewUrl;
         TextView textViewPublishedDate;
 
 
@@ -100,7 +117,7 @@ public class MainAdapter extends  RecyclerView.Adapter<MainAdapter.NewsViewHolde
              textViewAuthor = itemView.findViewById(R.id.text_view_author);
              textViewPublishedDate = itemView.findViewById(R.id.text_view_published_date);
              textViewDescription = itemView.findViewById(R.id.text_view_description);
-         //    textViewUrl = itemView.findViewById(R.id.text_view_url);
+             textViewUrl = itemView.findViewById(R.id.text_view_url);
 
 
              itemView.setOnClickListener(new View.OnClickListener() {

@@ -129,6 +129,7 @@ public class IntroductionActivity extends AppCompatActivity {
     }
 
     private void launchHomeScreen() {
+
         prefManager.setFirstTimeLaunch(false);
         prefManager.setSecondTimeLaunch(false);
         startActivity(new Intent(IntroductionActivity.this, MainActivity.class));
@@ -186,6 +187,7 @@ public class IntroductionActivity extends AppCompatActivity {
      * View pager adapter
      */
     public class MyViewPagerAdapter extends PagerAdapter {
+
         private LayoutInflater layoutInflater;
 
         public MyViewPagerAdapter() {

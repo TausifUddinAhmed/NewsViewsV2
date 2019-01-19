@@ -40,6 +40,7 @@ public class MainPresenter implements MainPresenterInterface {
 
         this.context = context;
         this.mainViewInterface = mainViewInterface;
+        articles = new ArrayList<>();
     }
 
 
@@ -74,8 +75,9 @@ public class MainPresenter implements MainPresenterInterface {
                         public final void onNext(NewsApiResponse response) {
 
 
+                            articles.addAll(response.getArticles());
 
-                            mainViewInterface.displayNews(response.getArticles())   ;
+                            mainViewInterface.displayNews(articles);
 
                             Log.e("NewsPortalResponse :  ", response.getArticles().toString());
 

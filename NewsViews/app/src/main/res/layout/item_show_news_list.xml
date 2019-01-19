@@ -44,12 +44,12 @@
             android:textColor="@color/black"
             android:id="@+id/text_view_description" />
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:text="@s"-->
-            <!--android:id="@+id/text_view_url" />-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/url"
+            android:id="@+id/text_view_url" />
 
         <TextView
             android:layout_width="match_parent"

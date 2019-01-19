@@ -94,6 +94,11 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
         });
 
 
+        mainAdapter = new MainAdapter(this);
+        recyclerView.setHasFixedSize(false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(mainAdapter);
 
     }
 
@@ -248,11 +253,14 @@ public class MainActivity extends AppCompatActivity implements MainViewInterface
     @Override
     public void displayNews(List<Article> articleList) {
 
-        Log.e("TAG", articleList.toString());
-        mainAdapter = new MainAdapter(this,articleList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(mainAdapter);
+//        Log.e("TAG", articleList.toString());
+//        mainAdapter = new MainAdapter(this);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        recyclerView.setAdapter(mainAdapter);
+
+        mainAdapter.addData(articleList);
+
 
 
     }
